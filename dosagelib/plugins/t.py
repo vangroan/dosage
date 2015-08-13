@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -45,6 +45,7 @@ class TheLandscaper(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(/comics/comic/comic_page/[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'(/comic/[^"]+)')+'&lsaquo; Previous')
     help = 'Index format: name'
+
 
 class TheNoob(_BasicScraper):
     url = 'http://www.thenoobcomic.com/index.php'

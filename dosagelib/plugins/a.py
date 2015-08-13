@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -238,6 +238,7 @@ class Antics(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r'(%s\?p=\d+)' % rurl, after='prev'))
     help = 'Index format: number'
 
+
 class AoiHouse(_ParserScraper):
     url = 'http://www.aoihouse.net/'
     imageSearch = '//div[@id="comic"]/a[2]/img'
@@ -271,7 +272,6 @@ class ASofterWorld(_ParserScraper):
     imageSearch = '//div[@id="comicimg"]//img'
     prevSearch = '//div[@id="previous"]/a'
     help = 'Index format: n (unpadded)'
-
 
 
 class AstronomyPOTD(_BasicScraper):

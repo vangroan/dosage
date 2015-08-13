@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -523,6 +523,7 @@ class StrongFemaleProtagonist(_ParserScraper):
             self.stripUrl % 'issue-5/hiatus-1',
             self.stripUrl % 'issue-5/hiatus-2',
         )
+
 
 class SuburbanTribe(_BasicScraper):
     url = 'http://www.pixelwhip.com/'

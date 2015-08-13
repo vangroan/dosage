@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -7,6 +7,7 @@ from re import compile, escape
 from ..scraper import _BasicScraper
 from ..helpers import bounceStarter, indirectStarter
 from ..util import getQueryParams, tagre
+
 
 class Underling(_BasicScraper):
     url = 'http://underlingcomic.com/'

@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -81,6 +81,7 @@ class LoadingArtist(_ParserScraper):
     url = 'http://www.loadingartist.com/comic/new-update/'
     imageSearch = '//div[@class="comic"]//img'
     prevSearch = "//a[contains(concat(' ', @class, ' '), ' prev ')]"
+
 
 class LookingForGroup(_ParserScraper):
     url = 'http://www.lfgcomic.com/'

@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -217,8 +217,10 @@ class WormWorldSaga(_BasicScraper):
 class WormWorldSagaGerman(WormWorldSaga):
     lang = 'de'
 
+
 class WormWorldSagaSpanish(WormWorldSaga):
     lang = 'es'
+
 
 class WormWorldSagaFrench(WormWorldSaga):
     lang = 'fr'

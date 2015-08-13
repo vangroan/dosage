@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -33,7 +33,7 @@ class Magellan(_ParserScraper):
     prevSearch = '.nav-previous > a'
     help = 'Index format: stripname'
 
-	
+
 class MagickChicks(_BasicScraper):
     url = 'http://www.magickchicks.com/'
     stripUrl = url + 'strips-mc/%s'
@@ -85,6 +85,7 @@ class MarriedToTheSea(_BasicScraper):
         unused, date, filename = imageUrl.rsplit('/', 2)
         return '%s-%s' % (date, filename)
 
+
 class MaxOveracts(_ParserScraper):
     url = 'http://occasionalcomics.com/'
     stripUrl = url + '%s/'
@@ -125,7 +126,7 @@ class Moonsticks(_ParserScraper):
     url = "http://moonsticks.org/"
     stripUrl = url
     imageSearch = "//div[@class='entry']//img"
-    prevSearch = u"//a[text()='« Previous']"
+    prevSearch = u"//a[text()='Â« Previous']"
     help = 'Index format: stripname'
 
 

@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -18,6 +18,7 @@ class Caggage(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r'(%sarchives/\d+)' % rurl, after="prev"))
     help = 'Index format: number'
 
+
 class CampComic(_BasicScraper):
     url = 'http://campcomic.com/comic/'
     rurl = escape(url)
@@ -26,6 +27,7 @@ class CampComic(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(http://hw1\.pa-cdn\.com/camp/assets/img/katie/comics/[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'(%s[^"]+)' % rurl, before="btn btnPrev"))
     help = 'Index Format: number'
+
 
 class CaptainSNES(_BasicScraper):
     url = 'http://www.captainsnes.com/'
@@ -97,6 +99,7 @@ class CatAndGirl(_BasicScraper):
         return url in (
             self.stripUrl % '4299',
         )
+
 
 class CatVersusHuman(_ParserScraper):
     url = 'http://www.catversushuman.com'
@@ -178,6 +181,7 @@ class CigarroAndCerveja(_ParserScraper):
     firstStripUrl = stripUrl % 'reacquaintance'
     imageSearch = '//div[@id="comic"]//img',
     prevSearch = '//a[contains(text()," Prev")]',
+
 
 class Collar6(_BasicScraper):
     url = 'http://collar6.com/'

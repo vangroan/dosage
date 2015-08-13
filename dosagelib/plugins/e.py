@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -33,7 +33,6 @@ class EarthsongSaga(_ParserScraper):
           int(imgmatch.group(3)), suffix)
 
 
-
 class EatLiver(_BasicScraper):
     url = 'http://www.eatliver.com/'
     rurl = escape(url)
@@ -64,6 +63,7 @@ class EdibleDirt(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r"(index\.php\?id=\d+)")+"Previous")
     help = 'Index format: number'
 
+
 class EdmundFinney(_BasicScraper):
     url = 'http://eqcomics.com/'
     rurl = escape(url)
@@ -72,6 +72,7 @@ class EdmundFinney(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(%scomics/\d+-\d+-\d+-[^"/]+)' % rurl))
     prevSearch = compile(tagre("a", "href", r'(%s\d+/\d+/\d+/[^"/]+/)' % rurl, after="navi navi-prev"))
     help = 'Index format: yyyy/mm/dd/stripname'
+
 
 class EerieCuties(_BasicScraper):
     url = 'http://www.eeriecuties.com/'

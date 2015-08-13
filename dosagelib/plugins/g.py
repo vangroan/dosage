@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -88,6 +88,7 @@ class GirlGenius(_BasicScraper):
                             before=r"(%s[^\"']+)" % rurl))
     multipleImagesPerStrip = True
     help = 'Index format: yyyymmdd'
+
 
 class GirlsWithSlingshots(_BasicScraper):
     url = 'http://www.girlswithslingshots.com/'

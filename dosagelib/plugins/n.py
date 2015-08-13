@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -149,6 +149,7 @@ class NoNeedForBushido(_BasicScraper):
     starter = indirectStarter(url,
        compile(tagre("a", "href", r'(%s\?webcomic1=[^"]+)' % rurl, after="last-webcomic")))
 
+
 class NotInventedHere(_BasicScraper):
     url = 'http://notinventedhe.re/'
     rurl = escape(url)
@@ -157,6 +158,7 @@ class NotInventedHere(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(http://thiswas.notinventedhe.re/on/\d+-\d+-\d+)'))
     prevSearch = compile(tagre("a", "href", r'(/on/\d+-\d+-\d+)')+'\s*Previous')
     help = 'Index format: yyyy-mm-dd'
+
 
 class Nukees(_BasicScraper):
     url = 'http://www.nukees.com/'

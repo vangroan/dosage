@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -15,6 +15,7 @@ class RadioactivePanda(_BasicScraper):
     imageSearch = compile(r'<img src="(/Assets/.*?)".+?"comicimg"')
     prevSearch = compile(r'<a href="(/comic/.*?)".+?previous_btn')
     help = 'Index format: n (no padding)'
+
 
 class RalfTheDestroyer(_ParserScraper):
     url = 'http://ralfthedestroyer.com/'

@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
@@ -136,6 +136,7 @@ class FragileSpanish(_ParserScraper):
     imageSearch = '//div[@id="content_comics"]/a[@class="nobg"]/img'
     prevSearch = '//a[@class="comicnav" and contains(text(),"Anterior")]'
     lang = 'es'
+
 
 class Freefall(_BasicScraper):
     url = 'http://freefall.purrsia.com/default.htm'
