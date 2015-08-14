@@ -3,7 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
-from dosagelib.plugins.cmsscraper import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper, _ComicControl
 
 from ..util import tagre
 from ..scraper import _BasicScraper, _ParserScraper
@@ -34,6 +34,10 @@ class BadMachinery(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(strips/\d+[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'(\?date=\d+)') + 'Previous')
     help = 'Index format: yyyymmdd'
+
+
+class BalderDash(_ComicControl):
+    url = 'http://www.balderdashcomic.com/'
 
 
 class Bardsworth(_WordpressScraper):
