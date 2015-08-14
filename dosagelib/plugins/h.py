@@ -2,7 +2,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
-from dosagelib.plugins.wordpress import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
 from ..helpers import bounceStarter

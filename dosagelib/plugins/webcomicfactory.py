@@ -1,5 +1,5 @@
 from dosagelib.helpers import indirectStarter
-from dosagelib.plugins.wordpress import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper
 from dosagelib.scraper import make_scraper
 
 

@@ -5,7 +5,7 @@
 from re import compile, escape, IGNORECASE, sub
 from os.path import splitext, basename
 from datetime import datetime
-from dosagelib.plugins.wordpress import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import indirectStarter, bounceStarter
 from ..util import tagre, getPageContent

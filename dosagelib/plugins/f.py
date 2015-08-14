@@ -3,7 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
-from dosagelib.plugins.wordpress import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper
 
 from ..util import tagre
 from ..scraper import _BasicScraper, _ParserScraper
