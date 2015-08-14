@@ -3,7 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
-from dosagelib.plugins.cmsscraper import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper, _ComicControl
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import bounceStarter, queryNamer, indirectStarter
 from ..util import tagre
@@ -135,6 +135,10 @@ class PHDComics(_BasicScraper):
         return url in (
             self.stripUrl % '1669', # video
         )
+
+
+class Picklewhistle(_ComicControl):
+    url = 'http://www.picklewhistle.com/'
 
 
 class PicPakDog(_BasicScraper):
