@@ -12,7 +12,6 @@ def add(name, url, starter=None):
     globals()[name] = make_scraper(name, _WordpressScraper, **attrs)
 
 
-__author__ = 'null'
 for (name, url) in [
     ('AntiwarComic', 'the-antiwar-comic-the-party/'),
     ('AsTheMayoTurns', 'as-the-mayo-turns/'),
