@@ -58,7 +58,7 @@ for (name, linkNumber) in [
 
 for (name, url) in [
     ('AntiwarComic', 'the-antiwar-comic-the-party/'),
-    ('AstheMayoTurns', 'as-the-mayo-turns/'),
+    ('AsTheMayoTurns', 'as-the-mayo-turns/'),
     ('ComicBookMafia', 'comic-book-mafia/'),
     ('Dealers', 'dealers-1-1998-was-the-year/'),
     ('DigitalHobo', 'digital-hobo-1-its-a-living-kinda/'),
@@ -66,9 +66,9 @@ for (name, url) in [
     ('GunCulture', 'gun-culture/'),
     ('IHateMyKids', 'i-hate-my-kids/'),
     ('InARelationship', 'in-a-relationship-3/'),
-    ('JapaneseSchoolgirlsinLove', 'japanese-schoolgirls-in-love-1/'),
-    ('KingdomoftheDwarves', 'kingdom-of-the-dwarves/'),
-    ('LesterCrenshawisDead', 'lester-crenshaw-is-dead/'),
+    ('JapaneseSchoolgirlsInLove', 'japanese-schoolgirls-in-love-1/'),
+    ('KingdomOfTheDwarves', 'kingdom-of-the-dwarves/'),
+    ('LesterCrenshawIsDead', 'lester-crenshaw-is-dead/'),
     ('Millennials', 'millennials/'),
     ('MiserableComedians', 'miserable-comedians-1-funny-because-its-sad/'),
     ('OldeTymeGamer', 'olde-tyme-gamer-playing-injured/'),
@@ -80,8 +80,8 @@ for (name, url) in [
     ('TalesOfPizza', 'tales-of-pizza-bad-tipper/'),
     ('TheGentlemensClub', 'the-gentlemens-club/'),
     ('TheHorrorOfColony6', 'the-horror-of-colony-6-page-1/'),
-    ('TheKingsofViralVideo', 'the-kings-of-viral-video-premiere/'),
-    ('TheSharonandTonyExperiment', 'the-sharon-and-tony-experiment/'),
+    ('TheKingsOfViralVideo', 'the-kings-of-viral-video-premiere/'),
+    ('TheSharonAndTonyExperiment', 'the-sharon-and-tony-experiment/'),
     ('TonyDestructo', 'tony-destructo/'),
     ('WeirdBikerTales', 'weird-biker-tales-the-last-outlaw/'),
     ('WillysSpaceDive', 'willys-space-dive/')
