@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.cmsscraper import _ComicControl
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import bounceStarter, indirectStarter
 from ..util import tagre
@@ -47,6 +48,10 @@ class LeastICouldDo(_BasicScraper):
     starter = indirectStarter(url,
       compile(tagre("a", "href", r'(%scomic/\d+/)' % rurl, after="feature-comic")))
     help = 'Index format: yyyymmdd'
+
+
+class LetsSpeakEnglish(_ComicControl):
+    url = 'http://www.marycagle.com'
 
 
 class Lint(_BasicScraper):

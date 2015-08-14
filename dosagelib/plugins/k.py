@@ -3,7 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
-from dosagelib.plugins.cmsscraper import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper, _ComicControl
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
 from ..helpers import indirectStarter
@@ -62,6 +62,10 @@ class KillerKomics(_BasicScraper):
     imageSearch = compile(r'<img src="(http://www.killerkomics.com/FichiersUpload/Comics/.+?)"')
     prevSearch = compile(r'<div id="precedent"><a href="(.+?)"')
     help = 'Index format: strip-name'
+
+
+class KiwiBlitz(_ComicControl):
+    url = 'http://www.kiwiblitz.com'
 
 
 class Krakow(_BasicScraper):

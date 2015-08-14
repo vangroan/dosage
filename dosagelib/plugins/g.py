@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.cmsscraper import _ComicControl
 
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import indirectStarter
@@ -130,6 +131,10 @@ class GoblinsComic(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r'(%s[-\d]+/)' % rurl, after="prev"))
     imageSearch = compile(tagre("img", "src", r'(%scomics/\d+\.[^"]+)' % rurl))
     help = 'Index format: ddmmyyyy'
+
+
+class GoGetARoomie(_ComicControl):
+    url = 'http://www.gogetaroomie.com'
 
 
 class GoneWithTheBlastwave(_BasicScraper):

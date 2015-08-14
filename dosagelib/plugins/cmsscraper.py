@@ -2,6 +2,11 @@
 from ..scraper import _ParserScraper
 
 
+class _ComicControl(_ParserScraper):
+    imageSearch = ('//div[@id="cc-comicbody"]//img')
+    prevSearch = ('//a[@rel="prev"]')
+
+
 class _WordpressScraper(_ParserScraper):
     imageSearch = ('//div[@id="comic"]//img',
                    '//div[@class="webcomic-image"]//img')

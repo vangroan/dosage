@@ -5,7 +5,7 @@
 from re import compile, escape, IGNORECASE, sub
 from os.path import splitext, basename
 from datetime import datetime
-from dosagelib.plugins.cmsscraper import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper, _ComicControl
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import indirectStarter, bounceStarter
 from ..util import tagre, getPageContent
@@ -462,6 +462,10 @@ class SpareParts(_BasicScraper):
     help = 'Index format: yyyymmdd'
 
 
+class Spinnerette(_ComicControl):
+    url = 'http://www.spinnyverse.com'
+
+
 class SPQRBlues(_WordpressScraper):
     url = 'http://spqrblues.com/IV/'
 
@@ -523,6 +527,10 @@ class StrawberryDeathCake(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(%swp-content/webcomic/[^"]+)' % rurl))
     prevSearch = compile(tagre("a", "href", r'(%sarchive/[^"]+)' % rurl, after="previous"))
     help = 'Index format: stripname'
+
+
+class StreetFighter(_ComicControl):
+    url = 'http://www.streetfightercomics.com'
 
 
 class StrongFemaleProtagonist(_ParserScraper):

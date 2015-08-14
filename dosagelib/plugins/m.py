@@ -3,7 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
-from dosagelib.plugins.cmsscraper import _WordpressScraper
+from dosagelib.plugins.cmsscraper import _WordpressScraper, _ComicControl
 
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
@@ -124,6 +124,10 @@ class MenageA3(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'([^"]*/comics/[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'([^"]*/strips-ma3/[^"]+)', before="cn[id]prev"))
     help = 'Index format: name'
+
+
+class Metacarpolis(_ComicControl):
+    url = 'http://www.metacarpolis.com'
 
 
 class Misfile(_BasicScraper):
