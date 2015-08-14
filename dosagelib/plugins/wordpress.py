@@ -34,45 +34,159 @@ class Amya(_WordpressScraper):
     url = 'http://www.amyachronicles.com/'
 
 
-add('1997', 'http://1977thecomic.com/')
-add('Alice', 'http://www.alicecomics.com/',
-    starter=indirectStarter('http://www.alicecomics.com/', '//a[text()="Latest Alice!"]'))
-add('AxeCop', 'http://axecop.com/comic/season-two/')
-add('Bardsworth', 'http://www.bardsworth.com/')
-add('BloodBound', 'http://bloodboundcomic.com/', 'comic/06112006/')
-add('BratHalla', 'http://brat-halla.com/')
-add('BroodHollow', 'http://broodhollow.chainsawsuit.com/', 'page/2012/10/06/book-1-curious-little-thing')
-add('Buni', 'http://www.bunicomic.com/')
-add('BusinessCat', 'http://www.businesscat.happyjar.com/')
-add('Catena', 'http://catenamanor.com/')
-add('CatsAndCameras', 'http://catsncameras.com/')
-add('CraftedFables', 'http://www.caf-fiends.net/comicpress/')
-add('CourtingDisaster', 'http://www.courting-disaster.com/', 'comic/courting-disaster-17/')
-add('CowboyJedi', 'http://www.cowboyjedi.com/')
-add('FowlLanguage', 'http://www.fowllanguagecomics.com/')
-add('HappyJar', 'http://www.happyjar.com/')
-add('Hipsters', 'http://www.hipsters-comic.com/', 'comic/hip01/')
-add('IDreamOfAJeanieBottle', 'http://jeaniebottle.com/')
-add('ItsWalky', 'http://www.itswalky.com/')
-add('KatzenfutterGeleespritzer', 'http://www.katzenfuttergeleespritzer.de/', 'comics/gert-grendil/', lang='de')
-add('Meek', 'http://www.meekcomic.com/')
-add('Meiosis', 'http://meiosiswebcomic.com/')
-add('Melonpool', 'http://www.melonpool.com/')
-add('MistyTheMouse', 'http://www.mistythemouse.com/')
-add('Nedroid', 'http://nedroid.com/')
-add('NerfNow', 'https://www.nerfnow.com/')
-add('Nicky510', 'http://www.nickyitis.com/')
-add('OnTheEdge', 'http://ontheedgecomics.com/', 'comic/ote0001/')
-add('PandyLand', 'http://pandyland.net/', '1/')
-add('SailorsunOrg', 'http://sailorsun.org/')
-add('Sharksplode', 'http://sharksplode.com/', textSearch='//div[@id="comic"]//img/@alt')
-add('Sithrah', 'http://sithrah.com/')
-add('SlightlyDamned', 'http://www.sdamned.com/')
-add('SPQRBlues', 'http://spqrblues.com/IV/')
-add('TheDreamlandChronicles', 'http://www.thedreamlandchronicles.com/')
-add('TheGentlemansArmchair', 'http://thegentlemansarmchair.com/')
-add('TheMelvinChronicles', 'http://melvin.jeaniebottle.com/')
-add('YAFGC', 'http://yafgc.net/')
+class Number1997(_WordpressScraper):
+    url = 'http://1977thecomic.com/'
+
+
+class Alice(_WordpressScraper):
+    url = 'http://www.alicecomics.com/'
+    starter = indirectStarter('http://www.alicecomics.com/', '//a[text()="Latest Alice!"]')
+
+
+class AxeCop(_WordpressScraper):
+    url = 'http://axecop.com/comic/season-two/'
+
+
+class Bardsworth(_WordpressScraper):
+    url = 'http://www.bardsworth.com/'
+
+
+class BloodBound(_WordpressScraper):
+    url = 'http://bloodboundcomic.com/'
+
+
+class BratHalla(_WordpressScraper):
+    url = 'http://brat-halla.com/'
+
+
+class BroodHollow(_WordpressScraper):
+    url = 'http://broodhollow.chainsawsuit.com/'
+
+
+class Buni(_WordpressScraper):
+    url = 'http://www.bunicomic.com/'
+
+
+class BusinessCat(_WordpressScraper):
+    url = 'http://www.businesscat.happyjar.com/'
+
+
+class Catena(_WordpressScraper):
+    url = 'http://catenamanor.com/'
+
+
+class CatsAndCameras(_WordpressScraper):
+    url = 'http://catsncameras.com/'
+
+
+class CraftedFables(_WordpressScraper):
+    url = 'http://www.caf-fiends.net/comicpress/'
+
+
+class CourtingDisaster(_WordpressScraper):
+    url = 'http://www.courting-disaster.com/'
+
+
+class CowboyJedi(_WordpressScraper):
+    url = 'http://www.cowboyjedi.com/'
+
+
+class FowlLanguage(_WordpressScraper):
+    url = 'http://www.fowllanguagecomics.com/'
+
+
+class HappyJar(_WordpressScraper):
+    url = 'http://www.happyjar.com/'
+
+
+class Hipsters(_WordpressScraper):
+    url = 'http://www.hipsters-comic.com/'
+
+
+class IDreamOfAJeanieBottle(_WordpressScraper):
+    url = 'http://jeaniebottle.com/'
+
+
+class ItsWalky(_WordpressScraper):
+    url = 'http://www.itswalky.com/'
+
+
+class KatzenfutterGeleespritzer(_WordpressScraper):
+    url = 'http://www.katzenfuttergeleespritzer.de/'
+    lang = 'de'
+
+
+class Meek(_WordpressScraper):
+    url = 'http://www.meekcomic.com/'
+
+
+class Meiosis(_WordpressScraper):
+    url = 'http://meiosiswebcomic.com/'
+
+
+class Melonpool(_WordpressScraper):
+    url = 'http://www.melonpool.com/'
+
+
+class MistyTheMouse(_WordpressScraper):
+    url = 'http://www.mistythemouse.com/'
+
+
+class Nedroid(_WordpressScraper):
+    url = 'http://nedroid.com/'
+
+
+class NerfNow(_WordpressScraper):
+    url = 'https://www.nerfnow.com/'
+
+
+class Nicky510(_WordpressScraper):
+    url = 'http://www.nickyitis.com/'
+
+
+class OnTheEdge(_WordpressScraper):
+    url = 'http://ontheedgecomics.com/'
+
+
+class PandyLand(_WordpressScraper):
+    url = 'http://pandyland.net/'
+
+
+class SailorsunOrg(_WordpressScraper):
+    url = 'http://sailorsun.org/'
+
+
+class Sharksplode(_WordpressScraper):
+    url = 'http://sharksplode.com/'
+    textSearch = '//div[@id="comic"]//img/@alt'
+
+
+class Sithrah(_WordpressScraper):
+    url = 'http://sithrah.com/'
+
+
+class SlightlyDamned(_WordpressScraper):
+    url = 'http://www.sdamned.com/'
+
+
+class SPQRBlues(_WordpressScraper):
+    url = 'http://spqrblues.com/IV/'
+
+
+class TheDreamlandChronicles(_WordpressScraper):
+    url = 'http://www.thedreamlandchronicles.com/'
+
+
+class TheGentlemansArmchair(_WordpressScraper):
+    url = 'http://thegentlemansarmchair.com/'
+
+
+class TheMelvinChronicles(_WordpressScraper):
+    url = 'http://melvin.jeaniebottle.com/'
+
+
+class YAFGC(_WordpressScraper):
+    url = 'http://yafgc.net/'
 
 # all comics on HijiNKS ENSUE
 for (name, starterXPath) in [
