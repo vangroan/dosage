@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import indirectStarter
 from ..util import tagre
@@ -47,29 +48,8 @@ class NatalieDee(_BasicScraper):
         return '%s-%s' % (date, filename)
 
 
-class NeoEarth(_BasicScraper):
-    url = 'http://www.neo-earth.com/NE/'
-    stripUrl = url + 'index.php?date=%s'
-    firstStripUrl = stripUrl % '2007-03-23'
-    imageSearch = compile(r'<img src="(strips/.+?)"')
-    prevSearch = compile(r'<a href="(.+?)">Previous</a>')
-    help = 'Index format: yyyy-mm-dd'
-
-
-class NewAdventuresOfBobbin(_BasicScraper):
-    url = 'http://www.bobbin-comic.com/bobbin_strips/'
-    imageSearch = compile(tagre("a", "href", r'(\d+\.gif)'))
-    multipleImagesPerStrip = True
-    help = 'Index format: none'
-
-
-class NewWorld(_BasicScraper):
-    url = 'http://www.tfsnewworld.com/'
-    stripUrl = url + '%s/'
-    firstStripUrl = stripUrl % '2007/08/30/63'
-    imageSearch = compile(r'<img src="(http://www.tfsnewworld.com/comics/.+?)"')
-    prevSearch = compile(r'<div class="nav-previous"><a href="([^"]+)" rel="prev">')
-    help = 'Index format: yyyy/mm/dd/stripn'
+class Nedroid(_WordpressScraper):
+    url = 'http://nedroid.com/'
 
 
 class NekkoAndJoruba(_BasicScraper):
@@ -89,6 +69,35 @@ class NekoTheKitty(_ParserScraper):
     prevSearch = '//a[text()="<-"]'
 
 
+class NeoEarth(_BasicScraper):
+    url = 'http://www.neo-earth.com/NE/'
+    stripUrl = url + 'index.php?date=%s'
+    firstStripUrl = stripUrl % '2007-03-23'
+    imageSearch = compile(r'<img src="(strips/.+?)"')
+    prevSearch = compile(r'<a href="(.+?)">Previous</a>')
+    help = 'Index format: yyyy-mm-dd'
+
+
+class NerfNow(_WordpressScraper):
+    url = 'https://www.nerfnow.com/'
+
+
+class NewAdventuresOfBobbin(_BasicScraper):
+    url = 'http://www.bobbin-comic.com/bobbin_strips/'
+    imageSearch = compile(tagre("a", "href", r'(\d+\.gif)'))
+    multipleImagesPerStrip = True
+    help = 'Index format: none'
+
+
+class NewWorld(_BasicScraper):
+    url = 'http://www.tfsnewworld.com/'
+    stripUrl = url + '%s/'
+    firstStripUrl = stripUrl % '2007/08/30/63'
+    imageSearch = compile(r'<img src="(http://www.tfsnewworld.com/comics/.+?)"')
+    prevSearch = compile(r'<div class="nav-previous"><a href="([^"]+)" rel="prev">')
+    help = 'Index format: yyyy/mm/dd/stripn'
+
+
 class NichtLustig(_BasicScraper):
     url = 'http://www.nichtlustig.de/main.html'
     stripUrl = 'http://static.nichtlustig.de/toondb/%s.html'
@@ -98,6 +107,10 @@ class NichtLustig(_BasicScraper):
     help = 'Index format: yymmdd'
     starter = indirectStarter(url,
                               compile(tagre("a", "href", r'([^"]*toondb/\d+\.html)')))
+
+
+class Nicky510(_WordpressScraper):
+    url = 'http://www.nickyitis.com/'
 
 
 class Nimona(_BasicScraper):
@@ -167,3 +180,7 @@ class Nukees(_BasicScraper):
     imageSearch = compile(r'"comic".+?"(/comics/.+?)"')
     prevSearch = compile(r'"(/d/.+?)".+?previous')
     help = 'Index format: yyyymmdd.html'
+
+
+class Number1997(_WordpressScraper):
+    url = 'http://1977thecomic.com/'

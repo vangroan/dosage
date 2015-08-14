@@ -9,6 +9,24 @@ from ..helpers import indirectStarter
 from ..util import tagre
 
 
+# 403 error when getting image files, disable for now
+class _GeneralProtectionFault(_BasicScraper):
+    url = 'http://www.gpf-comics.com/'
+    rurl = escape(url)
+    stripUrl = url + 'archive/%s'
+    firstStripUrl = stripUrl % '1998/11/02'
+    imageSearch = compile(tagre("img", "src", r'(/comics/[^"]*)'))
+    prevSearch = compile(tagre("a", "href", r'(%s[^"]+)' % rurl) +
+        tagre("img", "alt", "Previous Comic"))
+    help = 'Index format: yyyy/mm/dd'
+
+    @classmethod
+    def namer(cls, imageUrl, pageUrl):
+        """Remove random stuff from filename."""
+        imageName = imageUrl.split('/')[-1]
+        return imageName[:11] + imageName[-4:]
+
+
 class Galaxion(_BasicScraper):
     url = 'http://galaxioncomics.com/'
     rurl = escape(url)
@@ -57,24 +75,6 @@ class GeeksNextDoor(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r'(\d+-\d+-\d+\.html)') +
         tagre("img", "src", r'images/nav_prev\.png'))
     help = 'Index format: yyyy-mm-dd'
-
-
-# 403 error when getting image files, disable for now
-class _GeneralProtectionFault(_BasicScraper):
-    url = 'http://www.gpf-comics.com/'
-    rurl = escape(url)
-    stripUrl = url + 'archive/%s'
-    firstStripUrl = stripUrl % '1998/11/02'
-    imageSearch = compile(tagre("img", "src", r'(/comics/[^"]*)'))
-    prevSearch = compile(tagre("a", "href", r'(%s[^"]+)' % rurl) +
-        tagre("img", "alt", "Previous Comic"))
-    help = 'Index format: yyyy/mm/dd'
-
-    @classmethod
-    def namer(cls, imageUrl, pageUrl):
-        """Remove random stuff from filename."""
-        imageName = imageUrl.split('/')[-1]
-        return imageName[:11] + imageName[-4:]
 
 
 class GirlGenius(_BasicScraper):
@@ -157,6 +157,16 @@ class GrrlPower(_BasicScraper):
     help = 'Index format: number'
 
 
+class GUComics(_BasicScraper):
+    url = 'http://www.gucomics.com/'
+    stripUrl = url + '%s'
+    firstStripUrl = stripUrl % '20000710'
+    imageSearch = compile(tagre("img", "src", r'(/comics/\d{4}/gu_[^"]+)'))
+    prevSearch = compile(tagre("a", "href", r'(/\d+)') +
+      tagre("img", "src", r'/images/nav/prev\.png'))
+    help = 'Index format: yyyymmdd'
+
+
 class GunnerkriggCourt(_BasicScraper):
     url = 'http://www.gunnerkrigg.com/'
     stripUrl = url + '?p=%s'
@@ -173,13 +183,3 @@ class Gunshow(_BasicScraper):
     multipleImagesPerStrip = True
     prevSearch = compile(tagre("a", "href", r'([^"]+)') + tagre("img", "src", r'[^"]*menu/small/previous\.gif'))
     help = 'Index format: n'
-
-
-class GUComics(_BasicScraper):
-    url = 'http://www.gucomics.com/'
-    stripUrl = url + '%s'
-    firstStripUrl = stripUrl % '20000710'
-    imageSearch = compile(tagre("img", "src", r'(/comics/\d{4}/gu_[^"]+)'))
-    prevSearch = compile(tagre("a", "href", r'(/\d+)') +
-      tagre("img", "src", r'/images/nav/prev\.png'))
-    help = 'Index format: yyyymmdd'

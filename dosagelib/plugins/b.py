@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 
 from ..util import tagre
 from ..scraper import _BasicScraper, _ParserScraper
@@ -33,6 +34,10 @@ class BadMachinery(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(strips/\d+[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'(\?date=\d+)') + 'Previous')
     help = 'Index format: yyyymmdd'
+
+
+class Bardsworth(_WordpressScraper):
+    url = 'http://www.bardsworth.com/'
 
 
 class Baroquen(_BasicScraper):
@@ -152,6 +157,10 @@ class Blip(_BasicScraper):
             return prevUrl.replace("www.blipcomic.com", "blipcomic.com")
 
 
+class BloodBound(_WordpressScraper):
+    url = 'http://bloodboundcomic.com/'
+
+
 class BMovieComic(_BasicScraper):
     url = 'http://www.bmoviecomic.com/'
     stripUrl = url + '?cid=%s'
@@ -218,6 +227,10 @@ class BoyOnAStickAndSlither(_BasicScraper):
         return pageUrl.rsplit('/')[-1]
 
 
+class BratHalla(_WordpressScraper):
+    url = 'http://brat-halla.com/'
+
+
 class BrentalFloss(_BasicScraper):
     url = 'http://brentalflossthecomic.com/'
     stripUrl = url + '?id=%s'
@@ -256,6 +269,16 @@ class BrentalFlossGuest(BrentalFloss):
     firstStripUrl = stripUrl % '1'
 
 
+class BrightlyWound(_BasicScraper):
+    baseUrl = 'http://www.brightlywound.com/'
+    url = baseUrl + '?comic=137'
+    stripUrl = baseUrl + '?comic=%s'
+    firstStripUrl = stripUrl % '0'
+    imageSearch = compile(tagre("img", "src", r"(comic/[^']+)", quote="'"))
+    prevSearch = compile(r'<div id=\'navback\'><a href=\'(\?comic\=\d+)\'><img src=\'images/previous.png\'')
+    help = 'Index format: nnn'
+
+
 class Brink(_BasicScraper):
     url = 'http://paperfangs.com/brink/'
     rurl = escape(url)
@@ -266,14 +289,16 @@ class Brink(_BasicScraper):
     help = 'Index format: number'
 
 
-class BrightlyWound(_BasicScraper):
-    baseUrl = 'http://www.brightlywound.com/'
-    url = baseUrl + '?comic=137'
-    stripUrl = baseUrl + '?comic=%s'
-    firstStripUrl = stripUrl % '0'
-    imageSearch = compile(tagre("img", "src", r"(comic/[^']+)", quote="'"))
-    prevSearch = compile(r'<div id=\'navback\'><a href=\'(\?comic\=\d+)\'><img src=\'images/previous.png\'')
-    help = 'Index format: nnn'
+class BroodHollow(_WordpressScraper):
+    url = 'http://broodhollow.chainsawsuit.com/'
+
+
+class Buni(_WordpressScraper):
+    url = 'http://www.bunicomic.com/'
+
+
+class BusinessCat(_WordpressScraper):
+    url = 'http://www.businesscat.happyjar.com/'
 
 
 class ButtercupFestival(_ParserScraper):
@@ -285,16 +310,6 @@ class ButtercupFestival(_ParserScraper):
     help = 'Index format: 2-number'
 
 
-class ButterSafe(_BasicScraper):
-    url = 'http://buttersafe.com/'
-    rurl = escape(url)
-    stripUrl = url + '%s/'
-    firstStripUrl = stripUrl % '2007/04/03/breakfast-sad-turtle'
-    imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'(%s\d+\d+/\d+/\d+/[^"]+)' % rurl, after="prev"))
-    help = 'Index format: yyyy/mm/dd/stripname'
-
-
 class ButternutSquash(_BasicScraper):
     url = 'http://www.butternutsquash.net/'
     rurl = escape(url)
@@ -303,3 +318,13 @@ class ButternutSquash(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
     prevSearch = compile(tagre("a", "href", r'(%s[^"]+)' % rurl, after="prev"))
     help = 'Index format: yyyy/mm/dd/strip-name-author-name'
+
+
+class ButterSafe(_BasicScraper):
+    url = 'http://buttersafe.com/'
+    rurl = escape(url)
+    stripUrl = url + '%s/'
+    firstStripUrl = stripUrl % '2007/04/03/breakfast-sad-turtle'
+    imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
+    prevSearch = compile(tagre("a", "href", r'(%s\d+\d+/\d+/\d+/[^"]+)' % rurl, after="prev"))
+    help = 'Index format: yyyy/mm/dd/stripname'

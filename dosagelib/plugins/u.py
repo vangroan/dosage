@@ -9,6 +9,20 @@ from ..helpers import bounceStarter, indirectStarter
 from ..util import getQueryParams, tagre
 
 
+# XXX disallowed by robots.txt
+class _UserFriendly(_BasicScraper):
+    url = 'http://ars.userfriendly.org/cartoons/?mode=classic'
+    stripUrl = url + '&id=%s'
+    starter = bounceStarter(url, compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="">'))
+    imageSearch = compile(r'<img border="0" src="\s*(http://www.userfriendly.org/cartoons/archives/\d{2}\w{3}/.+?\.gif)"')
+    prevSearch = compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="Previous Cartoon">')
+    help = 'Index format: yyyymmdd'
+
+    @classmethod
+    def namer(cls, imageUrl, pageUrl):
+        return 'uf%s' % (getQueryParams(pageUrl)['id'][0][2:],)
+
+
 class Underling(_BasicScraper):
     url = 'http://underlingcomic.com/'
     stripUrl = url
@@ -55,17 +69,3 @@ class Unsounded(_BasicScraper):
         """Get comic strip URL from index."""
         chapter, num = index.split('-')
         return self.stripUrl % (chapter, chapter, num)
-
-
-# XXX disallowed by robots.txt
-class _UserFriendly(_BasicScraper):
-    url = 'http://ars.userfriendly.org/cartoons/?mode=classic'
-    stripUrl = url + '&id=%s'
-    starter = bounceStarter(url, compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="">'))
-    imageSearch = compile(r'<img border="0" src="\s*(http://www.userfriendly.org/cartoons/archives/\d{2}\w{3}/.+?\.gif)"')
-    prevSearch = compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="Previous Cartoon">')
-    help = 'Index format: yyyymmdd'
-
-    @classmethod
-    def namer(cls, imageUrl, pageUrl):
-        return 'uf%s' % (getQueryParams(pageUrl)['id'][0][2:],)

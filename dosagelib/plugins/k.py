@@ -3,9 +3,25 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
 from ..helpers import indirectStarter
+
+
+# XXX disallowed by robots.txt
+class _Kofightclub(_BasicScraper):
+    url = 'http://www.kofightclub.com/'
+    stripUrl = url + 'd/%s.html'
+    imageSearch = compile(tagre("img", "src", r'(\.\./images/\d+[^"]+)'))
+    prevSearch = compile(tagre("a", "href", r'((?:http://www\.kofightclub\.com)?/d/\d+\.html)')
+     + tagre("img", "alt", "Previous comic"))
+    help = 'Index format: yyyymmdd'
+
+
+class KatzenfutterGeleespritzer(_WordpressScraper):
+    url = 'http://www.katzenfuttergeleespritzer.de/'
+    lang = 'de'
 
 
 class KevinAndKell(_BasicScraper):
@@ -46,16 +62,6 @@ class KillerKomics(_BasicScraper):
     imageSearch = compile(r'<img src="(http://www.killerkomics.com/FichiersUpload/Comics/.+?)"')
     prevSearch = compile(r'<div id="precedent"><a href="(.+?)"')
     help = 'Index format: strip-name'
-
-
-# XXX disallowed by robots.txt
-class _Kofightclub(_BasicScraper):
-    url = 'http://www.kofightclub.com/'
-    stripUrl = url + 'd/%s.html'
-    imageSearch = compile(tagre("img", "src", r'(\.\./images/\d+[^"]+)'))
-    prevSearch = compile(tagre("a", "href", r'((?:http://www\.kofightclub\.com)?/d/\d+\.html)')
-     + tagre("img", "alt", "Previous comic"))
-    help = 'Index format: yyyymmdd'
 
 
 class Krakow(_BasicScraper):

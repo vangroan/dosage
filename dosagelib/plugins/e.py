@@ -82,30 +82,6 @@ class EerieCuties(_BasicScraper):
     help = 'Index format: stripname'
 
 
-class Eriadan(_BasicScraper):
-    url = 'http://www.shockdom.com/webcomics/eriadan/'
-    rurl = escape(url)
-    stripUrl = url + '%s/'
-    multipleImagesPerStrip = True
-    imageSearch = compile(tagre("img", "src", r'(%sfiles/[^"]+)' % rurl, after='width="[68]00"'))
-    prevSearch = compile(tagre("a", "href", r'([^"]+)', after="prev"))
-    help = 'Index format: yyyy/mm/dd/nnn (unpadded)'
-
-    def shouldSkipUrl(self, url, data):
-        return url in (
-             self.stripUrl % "2013/04/02/istruzioni-per-il-non-uso", # video
-        )
-
-
-class Erstwhile(_ParserScraper):
-    url = 'http://www.erstwhiletales.com/'
-    stripUrl = url + '%s/'
-    css = True
-    imageSearch = 'div.comicpane a img'
-    prevSearch = 'a.navi-prev'
-    help = 'Index format: title-nn'
-
-
 class ElfOnlyInn(_BasicScraper):
     url = 'http://www.elfonlyinn.net/'
     stripUrl = url + 'd/%s.html'
@@ -153,12 +129,36 @@ class EmergencyExit(_BasicScraper):
     help = 'Index format: n'
 
 
+class Eriadan(_BasicScraper):
+    url = 'http://www.shockdom.com/webcomics/eriadan/'
+    rurl = escape(url)
+    stripUrl = url + '%s/'
+    multipleImagesPerStrip = True
+    imageSearch = compile(tagre("img", "src", r'(%sfiles/[^"]+)' % rurl, after='width="[68]00"'))
+    prevSearch = compile(tagre("a", "href", r'([^"]+)', after="prev"))
+    help = 'Index format: yyyy/mm/dd/nnn (unpadded)'
+
+    def shouldSkipUrl(self, url, data):
+        return url in (
+             self.stripUrl % "2013/04/02/istruzioni-per-il-non-uso", # video
+        )
+
+
 class ErrantStory(_BasicScraper):
     url = 'http://www.errantstory.com/'
     stripUrl = url + '%s'
     imageSearch = compile(r'<img[^>]+?src="([^"]*?comics/.+?)"')
     prevSearch = compile(r'><a href="(.+?)">&lt;Previous</a>')
     help = 'Index format: yyyy-mm-dd/num'
+
+
+class Erstwhile(_ParserScraper):
+    url = 'http://www.erstwhiletales.com/'
+    stripUrl = url + '%s/'
+    css = True
+    imageSearch = 'div.comicpane a img'
+    prevSearch = 'a.navi-prev'
+    help = 'Index format: title-nn'
 
 
 class EverybodyLovesEricRaymond(_BasicScraper):

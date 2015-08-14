@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
+from dosagelib.plugins.wordpress import _WordpressScraper
 
 from ..util import tagre
 from ..scraper import _BasicScraper, _ParserScraper
@@ -125,6 +126,10 @@ class ForLackOfABetterComic(_BasicScraper):
     help = 'Index format: number'
 
 
+class FowlLanguage(_WordpressScraper):
+    url = 'http://www.fowllanguagecomics.com/'
+
+
 class Fragile(_ParserScraper):
     url = 'http://www.fragilestory.com/'
     imageSearch = '//div[@id="content_comics"]/a[@class="nobg"]/img'
@@ -136,14 +141,6 @@ class FragileSpanish(_ParserScraper):
     imageSearch = '//div[@id="content_comics"]/a[@class="nobg"]/img'
     prevSearch = '//a[@class="comicnav" and contains(text(),"Anterior")]'
     lang = 'es'
-
-
-class Freefall(_BasicScraper):
-    url = 'http://freefall.purrsia.com/default.htm'
-    stripUrl = 'http://freefall.purrsia.com/ff%s/fc%s.htm'
-    imageSearch = compile(r'<img src="(/ff\d+/.+?.\w{3,4})"')
-    prevSearch = compile(r'<A HREF="(/ff\d+/.+?.htm)">Previous</A>')
-    help = 'Index format: nnnn/nnnnn'
 
 
 class FredoAndPidjin(_BasicScraper):
@@ -159,6 +156,14 @@ class FredoAndPidjin(_BasicScraper):
     prevSearch = compile(tagre('a', 'href', '([^"]+)')+"Prev</a>")
     starter = indirectStarter(url,
        compile(tagre('a', 'href', "("+url+r'\d\d\d\d/\d\d/\d\d/[^"]+/)')))
+
+
+class Freefall(_BasicScraper):
+    url = 'http://freefall.purrsia.com/default.htm'
+    stripUrl = 'http://freefall.purrsia.com/ff%s/fc%s.htm'
+    imageSearch = compile(r'<img src="(/ff\d+/.+?.\w{3,4})"')
+    prevSearch = compile(r'<A HREF="(/ff\d+/.+?.htm)">Previous</A>')
+    help = 'Index format: nnnn/nnnnn'
 
 
 class FullFrontalNerdity(_BasicScraper):

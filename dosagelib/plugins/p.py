@@ -3,9 +3,14 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import bounceStarter, queryNamer, indirectStarter
 from ..util import tagre
+
+
+class PandyLand(_WordpressScraper):
+    url = 'http://pandyland.net/'
 
 
 class ParadigmShift(_BasicScraper):
@@ -142,16 +147,6 @@ class PicPakDog(_BasicScraper):
     help = 'Index format: stripname'
 
 
-class Pixel(_BasicScraper):
-    url = 'http://pixelcomic.net/'
-    rurl = escape(url)
-    stripUrl = url + '%s'
-    firstStripUrl = stripUrl % '000.shtml'
-    imageSearch = compile(tagre("img", "src", r'(\d+\.png)'))
-    prevSearch = compile(tagre("a", "href", r'(%s\d+\.(?:php|shtml))' % rurl, before="prev"))
-    help = 'Index format: nnn'
-
-
 class PiledHigherAndDeeper(_BasicScraper):
     url = 'http://www.phdcomics.com/comics.php'
     starter = bounceStarter(url, compile(r'<a href=(archive\.php\?comicid=\d+)>.*<img [^>]*next_button\.gif'))
@@ -170,6 +165,16 @@ class Pimpette(_ParserScraper):
     imageSearch = '//div[@id="strip"]/img'
     prevSearch = '//a[text()="previous"]'
     help = 'Index format: yyyymmdd'
+
+
+class Pixel(_BasicScraper):
+    url = 'http://pixelcomic.net/'
+    rurl = escape(url)
+    stripUrl = url + '%s'
+    firstStripUrl = stripUrl % '000.shtml'
+    imageSearch = compile(tagre("img", "src", r'(\d+\.png)'))
+    prevSearch = compile(tagre("a", "href", r'(%s\d+\.(?:php|shtml))' % rurl, before="prev"))
+    help = 'Index format: nnn'
 
 
 class PlanescapeSurvival(_BasicScraper):

@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper
 from ..util import tagre
 
@@ -27,6 +28,10 @@ class ICanBarelyDraw(_BasicScraper):
     help = 'Index format: number'
 
 
+class IDreamOfAJeanieBottle(_WordpressScraper):
+    url = 'http://jeaniebottle.com/'
+
+
 class InternetWebcomic(_BasicScraper):
     url = 'http://www.internet-webcomic.com/'
     rurl = escape(url)
@@ -44,3 +49,7 @@ class IrregularWebcomic(_BasicScraper):
     imageSearch = compile(r'<img .*src="(.*comics/.*(png|jpg|gif))".*>')
     prevSearch = compile(r'<a href="(/\d+\.html|/cgi-bin/comic\.pl\?comic=\d+)">Previous ')
     help = 'Index format: nnn'
+
+
+class ItsWalky(_WordpressScraper):
+    url = 'http://www.itswalky.com/'

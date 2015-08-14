@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import bounceStarter, indirectStarter
@@ -99,6 +100,14 @@ class CatAndGirl(_BasicScraper):
         return url in (
             self.stripUrl % '4299',
         )
+
+
+class Catena(_WordpressScraper):
+    url = 'http://catenamanor.com/'
+
+
+class CatsAndCameras(_WordpressScraper):
+    url = 'http://catsncameras.com/'
 
 
 class CatVersusHuman(_ParserScraper):
@@ -256,6 +265,18 @@ class CorydonCafe(_ParserScraper):
         return pageUrl.split('/')[-1].split('.')[0]
 
 
+class CourtingDisaster(_WordpressScraper):
+    url = 'http://www.courting-disaster.com/'
+
+
+class CowboyJedi(_WordpressScraper):
+    url = 'http://www.cowboyjedi.com/'
+
+
+class CraftedFables(_WordpressScraper):
+    url = 'http://www.caf-fiends.net/comicpress/'
+
+
 class CrapIDrewOnMyLunchBreak(_BasicScraper):
     url = 'http://crap.jinwicked.com/'
     stripUrl = url + '%s/'
@@ -263,6 +284,15 @@ class CrapIDrewOnMyLunchBreak(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(http://crap\.jinwicked\.com/comics/[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'([^"]+)', after="prev"))
     help = 'Index format: yyyy/mm/dd/name'
+
+
+class CrimsonDark(_BasicScraper):
+    url = 'http://www.davidcsimon.com/crimsondark/'
+    stripUrl = url + 'index.php?view=comic&strip_id=%s'
+    firstStripUrl = stripUrl % '1'
+    imageSearch = compile(r'src="(.+?strips/.+?)"')
+    prevSearch = compile(r'<a href=[\'"](/crimsondark/index\.php\?view=comic&amp;strip_id=\d+)[\'"]><img src=[\'"]themes/cdtheme/images/active_prev.png[\'"]')
+    help = 'Index format: n (unpadded)'
 
 
 class CtrlAltDel(_BasicScraper):
@@ -285,15 +315,6 @@ class CtrlAltDelSillies(CtrlAltDel):
     name = 'CtrlAltDel/Sillies'
     url = 'http://www.cad-comic.com/sillies/'
     stripUrl = url + '%s'
-
-
-class CrimsonDark(_BasicScraper):
-    url = 'http://www.davidcsimon.com/crimsondark/'
-    stripUrl = url + 'index.php?view=comic&strip_id=%s'
-    firstStripUrl = stripUrl % '1'
-    imageSearch = compile(r'src="(.+?strips/.+?)"')
-    prevSearch = compile(r'<a href=[\'"](/crimsondark/index\.php\?view=comic&amp;strip_id=\d+)[\'"]><img src=[\'"]themes/cdtheme/images/active_prev.png[\'"]')
-    help = 'Index format: n (unpadded)'
 
 
 class CucumberQuest(_BasicScraper):

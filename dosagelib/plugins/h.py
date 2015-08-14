@@ -2,6 +2,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
 from ..helpers import bounceStarter
@@ -28,6 +29,10 @@ class HagarTheHorrible(_BasicScraper):
         return starturl
 
 
+class HappyJar(_WordpressScraper):
+    url = 'http://www.happyjar.com/'
+
+
 class HarkAVagrant(_BasicScraper):
     url = 'http://www.harkavagrant.com/'
     rurl = escape(url)
@@ -46,6 +51,10 @@ class HarkAVagrant(_BasicScraper):
         filename = imageUrl.rsplit('/', 1)[1]
         num = pageUrl.rsplit('=', 1)[1]
         return '%s-%s' % (num, filename)
+
+
+class Hipsters(_WordpressScraper):
+    url = 'http://www.hipsters-comic.com/'
 
 
 class HorribleVille(_BasicScraper):

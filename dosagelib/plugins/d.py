@@ -9,6 +9,16 @@ from ..helpers import indirectStarter, bounceStarter
 from ..util import tagre
 
 
+# XXX disallowed /search by robots.txt
+class _DandyAndCompany(_BasicScraper):
+    url = 'http://www.dandyandcompany.com/'
+    stripUrl = None
+    multipleImagesPerStrip = True
+    imageSearch = compile(tagre("a", "href", r'(http://\d+\.bp\.blogspot\.com/[^"]+)', after="imageanchor"))
+    prevSearch = compile(tagre("a", "href", r"([^']+)", quote="'", after="Older Posts"))
+    help = 'Index format: none'
+
+
 class DailyDose(_BasicScraper):
     url = 'http://dailydoseofcomics.com/'
     starter = indirectStarter(url,
@@ -48,16 +58,6 @@ class Damonk(_BasicScraper):
     prevSearch = compile(tagre("a", "href", r'(/d/\d+\.html)') +
       tagre("img", "src", r'/images/previous_day\.gif'))
     help = 'Index format: yyyymmdd'
-
-
-# XXX disallowed /search by robots.txt
-class _DandyAndCompany(_BasicScraper):
-    url = 'http://www.dandyandcompany.com/'
-    stripUrl = None
-    multipleImagesPerStrip = True
-    imageSearch = compile(tagre("a", "href", r'(http://\d+\.bp\.blogspot\.com/[^"]+)', after="imageanchor"))
-    prevSearch = compile(tagre("a", "href", r"([^']+)", quote="'", after="Older Posts"))
-    help = 'Index format: none'
 
 
 class DangerouslyChloe(_BasicScraper):

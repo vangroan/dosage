@@ -27,15 +27,15 @@ class VGCats(_BasicScraper):
     help = 'Index format: n (unpadded)'
 
 
-class VGCatsSuper(VGCats):
-    name = 'VGCats/Super'
-    url = 'http://www.vgcats.com/super/'
-    stripUrl = url + '?strip_id=%s'
-
-
 class VGCatsAdventure(VGCats):
     name = 'VGCats/Adventure'
     url = 'http://www.vgcats.com/ffxi/'
+    stripUrl = url + '?strip_id=%s'
+
+
+class VGCatsSuper(VGCats):
+    name = 'VGCats/Super'
+    url = 'http://www.vgcats.com/super/'
     stripUrl = url + '?strip_id=%s'
 
 

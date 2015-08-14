@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, IGNORECASE
+from dosagelib.plugins.wordpress import _WordpressScraper
 
 from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
@@ -95,6 +96,10 @@ class MaxOveracts(_ParserScraper):
     help = 'Index format: nnn'
 
 
+class Meek(_WordpressScraper):
+    url = 'http://www.meekcomic.com/'
+
+
 class MegaTokyo(_BasicScraper):
     url = 'http://megatokyo.com/'
     stripUrl = url + 'strip/%s'
@@ -102,6 +107,14 @@ class MegaTokyo(_BasicScraper):
     imageSearch = compile(r'"(strips/.+?)"', IGNORECASE)
     prevSearch = compile(r'"(./strip/\d+?)">Prev')
     help = 'Index format: nnnn'
+
+
+class Meiosis(_WordpressScraper):
+    url = 'http://meiosiswebcomic.com/'
+
+
+class Melonpool(_WordpressScraper):
+    url = 'http://www.melonpool.com/'
 
 
 class MenageA3(_BasicScraper):
@@ -122,12 +135,8 @@ class Misfile(_BasicScraper):
     help = 'Index format: yyyy-mm-dd'
 
 
-class Moonsticks(_ParserScraper):
-    url = "http://moonsticks.org/"
-    stripUrl = url
-    imageSearch = "//div[@class='entry']//img"
-    prevSearch = u"//a[text()='« Previous']"
-    help = 'Index format: stripname'
+class MistyTheMouse(_WordpressScraper):
+    url = 'http://www.mistythemouse.com/'
 
 
 class MonsieurLeChien(_BasicScraper):
@@ -138,6 +147,14 @@ class MonsieurLeChien(_BasicScraper):
     imageSearch = compile(tagre("img", "src", r'(i/planches/[^"]+)'))
     prevSearch = compile(tagre("a", "href", r'([^"]+)') + tagre("img", "src", "i/precedent.gif"))
     help = 'Index format: n'
+
+
+class Moonsticks(_ParserScraper):
+    url = "http://moonsticks.org/"
+    stripUrl = url
+    imageSearch = "//div[@class='entry']//img"
+    prevSearch = u"//a[text()='« Previous']"
+    help = 'Index format: stripname'
 
 
 class MrLovenstein(_BasicScraper):

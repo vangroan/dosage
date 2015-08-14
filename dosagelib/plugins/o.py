@@ -3,6 +3,7 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import indirectStarter
 from ..util import tagre
@@ -75,6 +76,19 @@ class OmakeTheater(_ParserScraper):
     help = 'Index format: number (unpadded)'
 
 
+class OneQuestion(_BasicScraper):
+    url = 'http://onequestioncomic.com/'
+    stripUrl = url + 'comic.php?strip_id=%s'
+    firstStripUrl = stripUrl % '1'
+    imageSearch = compile(tagre("img", "src", r'((?:\.\./)?istrip_files/strips/\d+\.\w{3,4})'))
+    prevSearch = compile(tagre("a", "href", r'(comic\.php\?strip_id=\d+)') + tagre("img", "src", r'img/arrow_prev\.jpg'))
+    help = 'Index format: n (unpadded)'
+
+
+class OnTheEdge(_WordpressScraper):
+    url = 'http://ontheedgecomics.com/'
+
+
 class OnTheFastrack(_BasicScraper):
     url = 'http://onthefastrack.com/'
     stripUrl = url + 'comics/%s'
@@ -92,15 +106,6 @@ class OnTheFastrack(_BasicScraper):
         # name.title ensures that the comics are named the same
         # as in the previous scraper
         return "%s.gif" % name.title()
-
-
-class OneQuestion(_BasicScraper):
-    url = 'http://onequestioncomic.com/'
-    stripUrl = url + 'comic.php?strip_id=%s'
-    firstStripUrl = stripUrl % '1'
-    imageSearch = compile(tagre("img", "src", r'((?:\.\./)?istrip_files/strips/\d+\.\w{3,4})'))
-    prevSearch = compile(tagre("a", "href", r'(comic\.php\?strip_id=\d+)') + tagre("img", "src", r'img/arrow_prev\.jpg'))
-    help = 'Index format: n (unpadded)'
 
 
 class Optipess(_BasicScraper):

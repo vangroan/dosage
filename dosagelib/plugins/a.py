@@ -3,20 +3,10 @@
 # Copyright (C) 2012-2014 Bastian Kleineidam
 
 from re import compile, escape, MULTILINE
+from dosagelib.plugins.wordpress import _WordpressScraper
 from ..util import tagre
 from ..scraper import _BasicScraper, _ParserScraper
 from ..helpers import regexNamer, bounceStarter, indirectStarter
-
-
-class AbsurdNotions(_BasicScraper):
-    baseUrl = 'http://www.absurdnotions.org/'
-    url = baseUrl + 'page129.html'
-    stripUrl = baseUrl + 'page%s.html'
-    firstStripUrl = stripUrl % '1'
-    imageSearch = compile(tagre('img', 'src', r'(an[^"]+)'))
-    multipleImagesPerStrip = True
-    prevSearch = compile(tagre('a', 'href', r'([^"]+)') + tagre('img', 'src', 'nprev\.gif'))
-    help = 'Index format: n (unpadded)'
 
 
 class AbstruseGoose(_BasicScraper):
@@ -36,6 +26,17 @@ class AbstruseGoose(_BasicScraper):
         index = int(pageUrl.rstrip('/').split('/')[-1])
         name = imageUrl.split('/')[-1].split('.')[0]
         return 'c%03d-%s' % (index, name)
+
+
+class AbsurdNotions(_BasicScraper):
+    baseUrl = 'http://www.absurdnotions.org/'
+    url = baseUrl + 'page129.html'
+    stripUrl = baseUrl + 'page%s.html'
+    firstStripUrl = stripUrl % '1'
+    imageSearch = compile(tagre('img', 'src', r'(an[^"]+)'))
+    multipleImagesPerStrip = True
+    prevSearch = compile(tagre('a', 'href', r'([^"]+)') + tagre('img', 'src', 'nprev\.gif'))
+    help = 'Index format: n (unpadded)'
 
 
 class AcademyVale(_BasicScraper):
@@ -111,6 +112,11 @@ class ALessonIsLearned(_BasicScraper):
     firstStripUrl = stripUrl % '1'
     imageSearch = compile(tagre("img", "src", r"(cmx/lesson\d+\.[a-z]+)"))
     help = 'Index format: nnn'
+
+
+class Alice(_WordpressScraper):
+    url = 'http://www.alicecomics.com/'
+    starter = indirectStarter('http://www.alicecomics.com/', '//a[text()="Latest Alice!"]')
 
 
 class AlienLovesPredator(_BasicScraper):
@@ -202,6 +208,10 @@ class AmazingSuperPowers(_BasicScraper):
         )
 
 
+class Amya(_WordpressScraper):
+    url = 'http://www.amyachronicles.com/'
+
+
 class Angband(_BasicScraper):
     url = 'http://angband.calamarain.net/'
     stripUrl = url + 'view.php?date=%s'
@@ -265,6 +275,15 @@ class ARedTailsDream(_BasicScraper):
     help = 'Index format: nn'
 
 
+class ASkeweredParadise(_BasicScraper):
+    url = 'http://aspcomics.net/'
+    stripUrl = url + 'comic/%s'
+    firstStripUrl = stripUrl % '001'
+    imageSearch = compile(tagre("img", "src", r'(http://aspcomics\.net/sites/default/files[^"]*/asp\d+\.jpg)[^"]+'))
+    prevSearch = compile(tagre("a", "href", "(/comic/\d+)")+r"[^>]+Previous")
+    help = 'Index format: nnn'
+
+
 class ASofterWorld(_ParserScraper):
     url = 'http://www.asofterworld.com/'
     stripUrl = url + 'index.php?id=%s'
@@ -301,10 +320,5 @@ class AstronomyPOTD(_BasicScraper):
                           imageUrl.split('/')[-1].split('.')[0])
 
 
-class ASkeweredParadise(_BasicScraper):
-    url = 'http://aspcomics.net/'
-    stripUrl = url + 'comic/%s'
-    firstStripUrl = stripUrl % '001'
-    imageSearch = compile(tagre("img", "src", r'(http://aspcomics\.net/sites/default/files[^"]*/asp\d+\.jpg)[^"]+'))
-    prevSearch = compile(tagre("a", "href", "(/comic/\d+)")+r"[^>]+Previous")
-    help = 'Index format: nnn'
+class AxeCop(_WordpressScraper):
+    url = 'http://axecop.com/comic/season-two/'

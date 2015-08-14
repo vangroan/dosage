@@ -9,6 +9,14 @@ from ..util import tagre
 from ..helpers import indirectStarter
 
 
+# XXX disallowed by robots.txt
+class _WorldOfWarcraftEh(_BasicScraper):
+    url = 'http://woweh.com/'
+    stripUrl = None
+    imageSearch = compile(r'http://woweh.com/(comics/.+?)"')
+    prevSearch = compile(r'woweh.com/(\?p=.+:?)".+:?="prev')
+
+
 class WapsiSquare(_BasicScraper):
     url = 'http://wapsisquare.com/'
     rurl = escape(url)
@@ -214,16 +222,16 @@ class WormWorldSaga(_BasicScraper):
         return None
 
 
+class WormWorldSagaFrench(WormWorldSaga):
+    lang = 'fr'
+
+
 class WormWorldSagaGerman(WormWorldSaga):
     lang = 'de'
 
 
 class WormWorldSagaSpanish(WormWorldSaga):
     lang = 'es'
-
-
-class WormWorldSagaFrench(WormWorldSaga):
-    lang = 'fr'
 
 
 class WotNow(_BasicScraper):
@@ -233,11 +241,3 @@ class WotNow(_BasicScraper):
     imageSearch = compile(r'<IMG SRC="(comics/.+?)"')
     prevSearch = compile(r'<A HREF="(.+?)"><IMG SRC="images/b_prev.gif" ')
     help = 'Index format: n (unpadded)'
-
-
-# XXX disallowed by robots.txt
-class _WorldOfWarcraftEh(_BasicScraper):
-    url = 'http://woweh.com/'
-    stripUrl = None
-    imageSearch = compile(r'http://woweh.com/(comics/.+?)"')
-    prevSearch = compile(r'woweh.com/(\?p=.+:?)".+:?="prev')
