@@ -8,6 +8,18 @@ from ..util import tagre
 from ..helpers import indirectStarter
 
 
+class KarnizsManyDeaths(_BasicScraper):
+    url = 'http://darksouls.noizmaker.net/'
+    rurl = escape(url)
+    stripUrl = url + 'comic/%s/'
+    firstStripUrl = stripUrl % 'torcens-redecorating-services-2'
+    multipleImagesPerStrip = True
+    imageSearch = [compile(tagre('img','src', r'(%swp-content/uploads/\d+/\d+/[^"]+)' % rurl, after='title')),
+                   compile(tagre('img','src', r'(%swp-content/uploads/\d+/\d+/[^"]+)' % rurl, before='size-full'))] # Post that contains no comic image
+    prevSearch = compile(tagre('a', 'href', r'(%scomic\/[a-zA-Z0-9-]+\/)' % rurl, after='comic-nav-previous'))
+    help = 'Index format: stripname'
+
+
 class KevinAndKell(_BasicScraper):
     url = 'http://www.kevinandkell.com/'
     stripUrl = url + '%s/kk%s%s.html'
