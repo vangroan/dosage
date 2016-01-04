@@ -225,6 +225,17 @@ class SinFest(_BasicScraper):
     help = 'Index format: yyyy-mm-dd'
 
 
+class Skadi(_BasicScraper):
+    name = 'Skadi'
+    url = 'http://skadicomic.com/'
+    rurl = escape(url)
+    stripUrl = url + 'comic/%s/'
+    firstStripUrl = stripUrl % 'ballad-of-skadi-pt-1-2'
+    imageSearch = compile(tagre('img','src', r'(%swp-content/uploads/\d+/\d+/[^"]+)' % rurl, after='title'))
+    prevSearch = compile(tagre('a', 'href', r'(%scomic\/[a-zA-Z0-9-]+\/)' % rurl, after='comic-nav-previous'))
+    help = 'Index format: stripname'
+
+
 # XXX disallowed by robots.txt
 class _Sketchesnatched(_BasicScraper):
     url = 'http://sketchesnatched.blogspot.com/'
