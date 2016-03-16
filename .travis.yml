@@ -3,6 +3,7 @@ python:
   - "2.7"
   - "3.3"
   - "3.4"
+  - "3.5"
 # install libjpeg-dev for Pillow to handle JPEGs
 sudo: false
 addons:
@@ -12,9 +13,11 @@ addons:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-  - pip install pytest-xdist
+  - pip install pytest-xdist pytest-cov coveralls
 # command to run tests
-script: make test PYTESTOPTS="--tb=short -n10"
+script: make test PYTESTOPTS="--cov=dosage --cov=dosagelib --tb=short -n10"
+after_success:
+      coveralls
 notifications:
   irc:
     channels:
