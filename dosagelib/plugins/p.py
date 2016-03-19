@@ -8,6 +8,16 @@ from ..helpers import bounceStarter, queryNamer, indirectStarter
 from ..util import tagre
 
 
+class PanicAttack(_BasicScraper):
+    url = 'http://panicattackcomic.com/'
+    rurl = escape(url)
+    stripUrl = url + '%s/'
+    firstStripUrl = stripUrl % 'chapter-01-page-00/'
+    imageSearch = compile(tagre('img', 'src', r'(%scomics/[^"]*)' % rurl))
+    prevSearch = compile(tagre('a', 'href', r'([^"]+)', after='navi-prev'))
+    help = 'Index format: chapter-nn-page-nn'
+
+
 class ParadigmShift(_BasicScraper):
     url = 'http://www.paradigmshiftmanga.com/'
     starter = indirectStarter(url, compile(tagre("a", "href", r'([^"]+)', after="next-comic-link")))
