@@ -190,7 +190,7 @@ class TheThinHLine(_BasicScraper):
 
 
 class ThreePanelSoul(_BasicScraper):
-    url = 'http://threepanelsoul.com/'
+    url = 'http://www.threepanelsoul.com/'
     rurl = escape(url)
     stripUrl = url + '%s/'
     firstStripUrl = stripUrl % '2006/05/11/a-test-comic'
