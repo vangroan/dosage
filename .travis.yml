@@ -4,6 +4,9 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+cache:
+  directories:
+    $HOME/.cache/pip
 # install libjpeg-dev for Pillow to handle JPEGs
 sudo: false
 addons:
@@ -12,10 +15,9 @@ addons:
       - libjpeg-dev
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
-  - pip install pytest-xdist pytest-cov coveralls
+  - pip install tox-travis coveralls
 # command to run tests
-script: make test PYTESTOPTS="--cov=dosage --cov=dosagelib --tb=short -n10"
+script: tox
 after_success:
       coveralls
 notifications:
