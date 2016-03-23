@@ -196,7 +196,7 @@ class ThreePanelSoul(_BasicScraper):
     firstStripUrl = stripUrl % '2006/05/11/a-test-comic'
     imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
     prevSearch = compile(tagre("a", "href", r'(%scomic/[^"]+)' % rurl, after="prev"))
-    help = 'Index format: yyyy/mm/dd/stripname'
+    help = 'Index format: stripname'
 
 
 class TracyAndTristan(_BasicScraper):
