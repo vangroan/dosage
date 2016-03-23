@@ -190,12 +190,12 @@ class TheThinHLine(_BasicScraper):
 
 
 class ThreePanelSoul(_BasicScraper):
-    url = 'http://threepanelsoul.com/'
+    url = 'http://www.threepanelsoul.com/'
     rurl = escape(url)
     stripUrl = url + '%s/'
     firstStripUrl = stripUrl % '2006/05/11/a-test-comic'
     imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'(%s\d+/\d+/\d+/[^"]+)' % rurl, after="prev"))
+    prevSearch = compile(tagre("a", "href", r'(%scomic/[^"]+)' % rurl, after="prev"))
     help = 'Index format: yyyy/mm/dd/stripname'
 
 
