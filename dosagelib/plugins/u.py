@@ -1,31 +1,30 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
+# Copyright (C) 2015-2016 Tobias Gruetzmacher
+
+from __future__ import absolute_import, division, print_function
 
 from re import compile, escape
 
 from ..scraper import _BasicScraper
-from ..helpers import bounceStarter, indirectStarter
-from ..util import getQueryParams, tagre
+from ..helpers import indirectStarter
+from ..util import tagre
+from .common import _WordPressScraper, xpath_class
 
-class Underling(_BasicScraper):
+
+class Underling(_WordPressScraper):
     url = 'http://underlingcomic.com/'
-    stripUrl = url
-    rurl = escape(url)
-    firstStripUrl = stripUrl + 'page-one/'
-    imageSearch = compile(tagre("img", "src", r'(%scomics/[^"]*)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'([^"]+)', after = r'class="[^"]*navi-prev'))
-    help = 'Index format: nnn'
+    firstStripUrl = url + 'page-one/'
+    prevSearch = '//a[%s]' % xpath_class('navi-prev')
 
 
 class Undertow(_BasicScraper):
     url = 'http://undertow.dreamshards.org/'
-    stripUrl = url + '%s'
     imageSearch = compile(tagre("img", "src", r'([^"]+\.jpg)'))
     prevSearch = compile(r'href="(.+?)".+?teynpoint')
-    help = 'Index format: good luck !'
-    starter = indirectStarter(url,
-                              compile(r'href="(.+?)".+?Most recent page'))
+    latestSearch = compile(r'href="(.+?)".+?Most recent page')
+    starter = indirectStarter
 
 
 class UnicornJelly(_BasicScraper):
@@ -45,9 +44,10 @@ class Unsounded(_BasicScraper):
     rurl = escape(url)
     imageSearch = compile(tagre("img", "src", r'(pageart/[^"]*)'))
     prevSearch = compile(tagre("a", "href", r'([^"]*)', after='class="back'))
-    starter = indirectStarter(url,
-       compile(tagre("a", "href", r'(%scomic/[^"]*)' % rurl) +
-           tagre("img", "src", r"%simages/newpages\.png" % rurl)))
+    latestSearch = compile(tagre("a", "href", r'(%scomic/[^"]*)' % rurl) +
+                           tagre("img", "src",
+                                 r"%simages/newpages\.png" % rurl))
+    starter = indirectStarter
     help = 'Index format: chapter-number'
 
     def getIndexStripUrl(self, index):
@@ -56,15 +56,6 @@ class Unsounded(_BasicScraper):
         return self.stripUrl % (chapter, chapter, num)
 
 
-# XXX disallowed by robots.txt
-class _UserFriendly(_BasicScraper):
-    url = 'http://ars.userfriendly.org/cartoons/?mode=classic'
-    stripUrl = url + '&id=%s'
-    starter = bounceStarter(url, compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="">'))
-    imageSearch = compile(r'<img border="0" src="\s*(http://www.userfriendly.org/cartoons/archives/\d{2}\w{3}/.+?\.gif)"')
-    prevSearch = compile(r'<area shape="rect" href="(/cartoons/\?id=\d{8}&mode=classic)" coords="[\d, ]+?" alt="Previous Cartoon">')
-    help = 'Index format: yyyymmdd'
-
-    @classmethod
-    def namer(cls, imageUrl, pageUrl):
-        return 'uf%s' % (getQueryParams(pageUrl)['id'][0][2:],)
+class UrgentTransformationCrisis(_WordPressScraper):
+    url = 'http://www.catomix.com/utc/'
+    firstStripUrl = url + 'comic/cover1'

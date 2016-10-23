@@ -1,3 +1,6 @@
-requests>=2.0
-pbr
+colorama
 lxml
+pbr
+requests>=2.0
+six
+backports.shutil_get_terminal_size; python_version<'3.3'

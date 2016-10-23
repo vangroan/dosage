@@ -1,10 +1,15 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
+# Copyright (C) 2015-2016 Tobias Gruetzmacher
+
+from __future__ import absolute_import, division, print_function
 
 from re import compile, escape
+
 from ..scraper import _BasicScraper
 from ..util import tagre
+from .common import _WordPressScraper, xpath_class
 
 
 class IAmArg(_BasicScraper):
@@ -27,13 +32,15 @@ class ICanBarelyDraw(_BasicScraper):
     help = 'Index format: number'
 
 
-class InternetWebcomic(_BasicScraper):
+class IDreamOfAJeanieBottle(_WordPressScraper):
+    url = 'http://jeaniebottle.com/'
+
+
+class InternetWebcomic(_WordPressScraper):
     url = 'http://www.internet-webcomic.com/'
-    rurl = escape(url)
     stripUrl = url + '?p=%s'
     firstStripUrl = stripUrl % '30'
-    imageSearch = compile(tagre("img", "src", r'(%scomics/[^"/]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'(%s\?p=\d+)' % rurl, after="navi navi-prev"))
+    prevSearch = '//a[%s]' % xpath_class('navi-prev')
     help = 'Index format: n'
 
 
@@ -44,3 +51,7 @@ class IrregularWebcomic(_BasicScraper):
     imageSearch = compile(r'<img .*src="(.*comics/.*(png|jpg|gif))".*>')
     prevSearch = compile(r'<a href="(/\d+\.html|/cgi-bin/comic\.pl\?comic=\d+)">Previous ')
     help = 'Index format: nnn'
+
+
+class ItsWalky(_WordPressScraper):
+    url = 'http://www.itswalky.com/'

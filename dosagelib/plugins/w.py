@@ -1,22 +1,21 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
+# Copyright (C) 2015-2016 Tobias Gruetzmacher
+
+from __future__ import absolute_import, division, print_function
 
 from re import compile, escape, IGNORECASE
 
-from ..scraper import _BasicScraper
+from ..scraper import _BasicScraper, _ParserScraper
 from ..util import tagre
 from ..helpers import indirectStarter
+from .common import _ComicControlScraper, _WordPressScraper, xpath_class
 
 
-class WapsiSquare(_BasicScraper):
+class WapsiSquare(_WordPressScraper):
     url = 'http://wapsisquare.com/'
-    rurl = escape(url)
-    stripUrl = url + 'comic/%s/'
-    firstStripUrl = stripUrl % '09092001'
-    imageSearch = compile(r'<img src="(%scomics/.+?)"' % rurl)
-    prevSearch = compile(r'<a href="(.+?)"[^>]+?>Previous</a>')
-    help = 'Index format: stripname'
+    firstStripUrl = url + 'comic/09092001/'
 
 
 class WastedTalent(_BasicScraper):
@@ -24,23 +23,15 @@ class WastedTalent(_BasicScraper):
     stripUrl = url + 'comic/%s'
     firstStripUrl = stripUrl % 'anime-crack'
     imageSearch = compile(tagre("img", "src", r'(http://www\.wastedtalent\.ca/sites/default/files/imagecache/comic_full/comics/\d+/[^"]+)'))
-    prevSearch = compile(tagre("a", "href", r'(/comic/[^"]+)', after="comic_prev"))
+    prevSearch = compile(tagre("a", "href", r'(/comic/[^"]+)',
+                               after="comic_prev"))
     help = 'Index format: stripname'
-
-
-class WayfarersMoon(_BasicScraper):
-    url = 'http://www.wayfarersmoon.com/'
-    stripUrl = url + 'index.php?page=%s'
-    firstStripUrl = stripUrl % '0'
-    imageSearch = compile(r'<img src="(/admin.+?)"')
-    prevSearch = compile(r'<a href="(.+?)".+?btn_back.gif')
-    help = 'Index format: nn'
 
 
 class WebDesignerCOTW(_BasicScraper):
     url = 'http://www.webdesignerdepot.com/'
     rurl = escape(url)
-    starter = indirectStarter(url, compile(tagre("a", "href", r'(%s\d+/\d+/[^"]+/)' % rurl)))
+    starter = indirectStarter
     stripUrl = url + '%s/'
     firstStripUrl = stripUrl % '2009/11/comics-of-the-week-1'
     imageSearch = (
@@ -50,17 +41,18 @@ class WebDesignerCOTW(_BasicScraper):
         compile(tagre("img", "src", r'(http://netdna\.webdesignerdepot\.com/uploads/comics/\d+\.[^"]+)')),
     )
     multipleImagesPerStrip = True
-    prevSearch = compile(tagre("link", "href", r"(%s\d+/\d+/[^']+)" % rurl, before='prev', quote="'"))
+    prevSearch = compile(tagre("link", "href", r"(%s\d+/\d+/[^']+)" % rurl,
+                               before='prev', quote="'"))
+    latestSearch = compile(tagre("a", "href", r'(%s\d+/\d+/[^"]+/)' % rurl))
     help = 'Index format: yyyy/mm/stripname'
 
     def shouldSkipUrl(self, url, data):
         """Skip non-comic URLs."""
         return 'comics-of-the-week' not in url
 
-    @classmethod
-    def namer(cls, imageUrl, pageUrl):
-        imagename = imageUrl.rsplit('/', 1)[1]
-        week = compile(r'week-(\d+)').search(pageUrl).group(1)
+    def namer(self, image_url, page_url):
+        imagename = image_url.rsplit('/', 1)[1]
+        week = compile(r'week-(\d+)').search(page_url).group(1)
         return "%s-%s" % (week, imagename)
 
 
@@ -78,38 +70,23 @@ class Weregeek(_BasicScraper):
     rurl = escape(url)
     stripUrl = url + '%s/'
     firstStripUrl = stripUrl % '2006/11/27/'
-    imageSearch = compile(tagre("img", "src", r'(%scomics/\d+-\d+-\d+[^"]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'((%s)?(/)?\d+/\d+/\d+/)'% rurl)+'\s*'+ tagre('img', 'src', '[^"]*previous_day.gif'))
+    imageSearch = compile(tagre("img", "src",
+                                r'(%scomics/\d+-\d+-\d+[^"]+)' % rurl))
+    prevSearch = compile(tagre("a", "href", r'((%s)?/?\d+/\d+/\d+/)' % rurl) +
+                         '\s*' + tagre('img', 'src', '[^"]*previous_day.gif'))
     help = 'Index format: yyyy/mm/dd'
 
 
-class WhiteNinja(_BasicScraper):
-    baseUrl = 'http://www.whiteninjacomics.com/'
-    url = baseUrl + 'comics.shtml'
-    stripUrl = baseUrl + 'comics/%s.shtml'
-    imageSearch = compile(r'<img src=(/images/comics/(?!t-).+?\.gif) border=0')
-    prevSearch = compile(r'(/comics/.+?shtml).+?previous')
-    help = 'Index format: s (comic name)'
+class WhiteNoise(_WordPressScraper):
+    url = 'http://whitenoisecomic.com/'
+    firstStripUrl = url + 'comic/book-one/'
+    prevSearch = '//a[%s]' % xpath_class('previous-webcomic-link')
 
 
-class WhiteNoise(_BasicScraper):
-    baseUrl = 'http://www.wncomic.com/'
-    url = baseUrl + 'archive.php'
-    stripUrl = baseUrl + 'archive_comments.php?strip_id=%s'
-    firstStripUrl = stripUrl % '1'
-    imageSearch = compile(r'(istrip_files/strips/.+?)"')
-    prevSearch = compile(r'</a><a href="(.+?)"><img src="images/top_back.jpg" ')
-    help = 'Index format: n'
-
-
-class Whomp(_BasicScraper):
+class Whomp(_ComicControlScraper):
     url = 'http://www.whompcomic.com/'
-    rurl = escape(url)
-    stripUrl = url + '%s/'
-    firstStripUrl = stripUrl % '2010/06/14/06142010'
-    imageSearch = compile(tagre("img", "src", r'(%scomics/\d+-\d+-\d+[^"]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'(%s\d+/\d+/\d+/[^"]+)' % rurl, after="navi-prev"))
-    help = 'Index format: yyyy/mm/dd/stripname'
+    firstStripUrl = url + 'comic/06152010'
+    textSearch = '//img[@id="cc-comic"]/@title'
 
 
 class WhyTheLongFace(_BasicScraper):
@@ -118,18 +95,20 @@ class WhyTheLongFace(_BasicScraper):
     url = baseUrl + 'wtlf200709.html'
     stripUrl = baseUrl + 'wtlf%s.html'
     firstStripUrl = stripUrl % '200306'
-    imageSearch = compile(r'<img src="(%swtlf.+?|lf\d+.\w{1,4})"' % rurl, IGNORECASE)
+    imageSearch = compile(r'<img src="(%swtlf.+?|lf\d+.\w{1,4})"' % rurl,
+                          IGNORECASE)
     multipleImagesPerStrip = True
     prevSearch = compile(r'HREF="(.+?)"><IMG SRC="nprev.gif" ')
     help = 'Index format: yyyymm'
 
 
-class Wigu(_BasicScraper):
-    url = 'http://wigucomics.com/'
-    stripUrl = url + 'oc/index.php?comic=%s'
+class Wigu(_ParserScraper):
+    stripUrl = 'http://www.wigucomics.com/adventures/index.php?comic=%s'
+    url = stripUrl % '-1'
     firstStripUrl = stripUrl % '1'
-    imageSearch = compile(tagre("img", "src", r'(/oc/comics/[^"]+)'))
-    prevSearch = compile(tagre("a", "href", r'(/oc/index\.php\?comic=\d+)', after="go back"))
+    imageSearch = '//div[@id="comic"]//img[contains(@src, "/comics/")]'
+    prevSearch = '//a[@alt="go back"]'
+    endOfLife = True
     help = 'Index format: n'
 
 
@@ -138,9 +117,11 @@ class Wonderella(_BasicScraper):
     rurl = escape(url)
     stripUrl = url + '%s/'
     firstStripUrl = stripUrl % '2006/09/09/the-torment-of-a-thousand-yesterdays'
-    imageSearch = compile(tagre("div", "id", r"comic", quote=r'["\']') + r"\s*" +
-        tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
-    prevSearch = compile(tagre("a", "href", r'(%s\d+/\d+/\d+/[^"]+)' % rurl, after="prev"))
+    imageSearch = compile(tagre("div", "id", r"comic", quote=r'["\']') +
+                          r"\s*" +
+                          tagre("img", "src", r'(%scomics/[^"]+)' % rurl))
+    prevSearch = compile(tagre("a", "href", r'(%s\d+/\d+/\d+/[^"]+)' % rurl,
+                               after="prev"))
     help = 'Index format: yyyy/mm/dd/name'
 
 
@@ -156,7 +137,6 @@ class Wondermark(_BasicScraper):
 class WorldOfMrToast(_BasicScraper):
     baseUrl = 'http://www.theimaginaryworld.com/'
     url = baseUrl + 'mrTcomicA.html'
-    stripUrl = baseUrl + '%s.html'
     imageSearch = compile(tagre("img", "src", r'(comic[^"]+)'))
     # list the archive links since there is no prev/next navigation
     prevurls = (
@@ -177,14 +157,18 @@ class WorldOfMrToast(_BasicScraper):
     )
     firstStripUrl = prevurls[-1]
     multipleImagesPerStrip = True
-    help = 'Index format: none'
+    endOfLife = True
 
-    def getPrevUrl(self, url, data, baseUrl):
+    def getPrevUrl(self, url, data):
         idx = self.prevurls.index(url)
         try:
-            return self.prevurls[idx+1]
+            return self.prevurls[idx + 1]
         except IndexError:
             return None
+
+
+class WorldOfWarcraftEh(_WordPressScraper):
+    url = 'http://woweh.com/'
 
 
 class WormWorldSaga(_BasicScraper):
@@ -198,10 +182,9 @@ class WormWorldSaga(_BasicScraper):
     latestChapter = 5
     multipleImagesPerStrip = True
 
-    @classmethod
-    def starter(cls):
+    def starter(self):
         return '%schapters/chapter%02d/%s/index.php' % (
-            cls.url, cls.latestChapter, cls.lang.upper())
+            self.url, self.latestChapter, self.lang.upper())
 
     def getPrevUrl(self, url, data):
         """Find previous URL."""
@@ -214,28 +197,13 @@ class WormWorldSaga(_BasicScraper):
         return None
 
 
-class WormWorldSagaGerman(WormWorldSaga):
-    lang = 'de'
-
-class WormWorldSagaSpanish(WormWorldSaga):
-    lang = 'es'
-
 class WormWorldSagaFrench(WormWorldSaga):
     lang = 'fr'
 
 
-class WotNow(_BasicScraper):
-    url = 'http://shadowburn.binmode.com/wotnow/'
-    stripUrl = url + 'comic.php?comic_id=%s'
-    firstStripUrl = stripUrl % '1'
-    imageSearch = compile(r'<IMG SRC="(comics/.+?)"')
-    prevSearch = compile(r'<A HREF="(.+?)"><IMG SRC="images/b_prev.gif" ')
-    help = 'Index format: n (unpadded)'
+class WormWorldSagaGerman(WormWorldSaga):
+    lang = 'de'
 
 
-# XXX disallowed by robots.txt
-class _WorldOfWarcraftEh(_BasicScraper):
-    url = 'http://woweh.com/'
-    stripUrl = None
-    imageSearch = compile(r'http://woweh.com/(comics/.+?)"')
-    prevSearch = compile(r'woweh.com/(\?p=.+:?)".+:?="prev')
+class WormWorldSagaSpanish(WormWorldSaga):
+    lang = 'es'

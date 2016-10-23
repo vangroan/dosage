@@ -1,79 +1,121 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Copyright (C) 2004-2005 Tristan Seligmann and Jonathan Jacobs
 # Copyright (C) 2012-2014 Bastian Kleineidam
+# Copyright (C) 2015-2016 Tobias Gruetzmacher
 
-from re import compile
-from ..scraper import make_scraper
-from ..util import tagre
+from __future__ import absolute_import, division, print_function
+
+from ..scraper import _ParserScraper
 
 
-_imageSearch = compile(tagre("img", "src", r'([^"]*/comics/[^"]+)'))
-_stripPattern = r'([^"]*/d/\d{8}\.html)'
-_prevSearch = (
-    compile(tagre("link", "href", _stripPattern, before="prev")),
-    compile(tagre("a", "href", _stripPattern, after="prev")),
-    compile(tagre("a", "href", _stripPattern) + tagre("img", "id", r"previous_day1")),
-    compile(tagre("a", "href", _stripPattern) + tagre("img", "id", r"katc7")),
-)
-
-def add(name, url):
-    classname = 'KeenSpot_%s' % name
-    if '/d/' in url:
-        stripUrl = url.split('/d/')[0] + '/d/%s.html'
-    else:
-        stripUrl = url + 'd/%s.html'
-
-    globals()[classname] = make_scraper(classname,
-        name='KeenSpot/' + name,
-        url=url,
-        stripUrl=stripUrl,
-        imageSearch = _imageSearch,
-        prevSearch = _prevSearch,
-        help = 'Index format: yyyymmdd',
+class KeenSpot(_ParserScraper):
+    multipleImagesPerStrip = True
+    imageSearch = (
+        '//img[contains(@src, "/comics/")]',
+        # Shockwave Darkside
+        '//img[contains(@src, "/comics2D/")]',
+        '//img[contains(@src, "com/shockwave")]',
+        # Sore Thumbs
+        '//img[contains(@src, "com/st2")]',
+        # Wayward Sons
+        '//img[contains(@src, "com/2")]',
     )
+    prevSearch = (
+        '//link[@rel="prev"]',
+        '//a[@rel="prev"]',
+        # Exposure
+        '//a[img[@id="exp29"]]',
+        # Hero By Night
+        '//area[contains(@coords, ",-7,")]',
+        # Katrina
+        '//a[img[@id="katc7"]]',
+        # No Room For Magic, Everyone Loves Adis, Wisdom Of Moo
+        '//a[text()="Previous comic"]',
+        # Supernovas
+        '//a[img[@id="p_top_nav"]]',
+    )
+    help = 'Index format: yyyymmdd'
 
-# do not edit anything below since these entries are generated from scripts/update.sh
-# DO NOT REMOVE
-add('27TwentySeven', 'http://twenty-seven.keenspot.com/')
-add('Adventurers', 'http://adventurers.keenspot.com/')
-add('AntiheroForHire', 'http://antihero.keenspot.com/')
-add('BanzaiGirl', 'http://banzaigirl.keenspot.com/')
-add('Barker', 'http://barkercomic.keenspot.com/')
-add('Buzzboy', 'http://buzzboy.keenspot.com/')
-add('ChoppingBlock', 'http://choppingblock.keenspot.com/')
-add('ClichFlamb', 'http://clicheflambe.keenspot.com/')
-add('CountYourSheep', 'http://countyoursheep.keenspot.com/')
-add('EverythingJake', 'http://everythingjake.keenspot.com/')
-add('FallOutToyWorks', 'http://fallouttoyworks.keenspot.com/')
-add('FriarAndBrimstone', 'http://friarandbrimstone.keenspot.com/')
-add('GeneCatlow', 'http://genecatlow.keenspot.com/')
-add('GodMode', 'http://godmode.keenspot.com/')
-add('GreenWake', 'http://greenwake.keenspot.com/')
-add('HeadTrip', 'http://headtrip.keenspot.com/')
-add('HoaxHunters', 'http://hoaxhunters.keenspot.com/')
-add('InHere', 'http://inhere.keenspot.com/')
-add('Katrina', 'http://katrina.keenspot.com/')
-add('Landis', 'http://landis.keenspot.com/')
-add('MakeshiftMiracle', 'http://makeshiftmiracle.keenspot.com/')
-add('Marksmen', 'http://marksmen.keenspot.com/')
-add('MarryMe', 'http://marryme.keenspot.com/')
-add('MedusasDaughter', 'http://medusasdaughter.keenspot.com/')
-add('MonsterMassacre', 'http://monstermassacre.keenspot.com/')
-add('Newshounds', 'http://newshounds.keenspot.com/')
-add('NoPinkPonies', 'http://nopinkponies.keenspot.com/')
-add('OutThere', 'http://outthere.keenspot.com/')
-add('Porcelain', 'http://porcelain.keenspot.com/')
-add('QUILTBAG', 'http://quiltbag.keenspot.com/')
-add('RedSpike', 'http://redspike.keenspot.com/')
-add('RumbleFall', 'http://rumblefall.keenspot.com/')
-add('SamuraisBlood', 'http://samuraisblood.keenspot.com/')
-add('Sharky', 'http://sharky.keenspot.com/')
-add('SomethingHappens', 'http://somethinghappens.keenspot.com/')
-add('SoreThumbs', 'http://sorethumbs.keenspot.com/')
-add('Striptease', 'http://striptease.keenspot.com/')
-add('Superosity', 'http://superosity.keenspot.com/')
-add('TheFirstDaughter', 'http://thefirstdaughter.keenspot.com/')
-add('TheGodChild', 'http://godchild.keenspot.com/')
-add('TheHuntersofSalamanstra', 'http://salamanstra.keenspot.com/')
-add('TheLounge', 'http://thelounge.keenspot.com/')
-add('WICKEDPOWERED', 'http://wickedpowered.keenspot.com/')
+    def __init__(self, name, sub, last=None, path='d/%s.html'):
+        super(KeenSpot, self).__init__('KeenSpot/' + name)
+        self.url = 'http://%s.keenspot.com/' % sub
+        self.stripUrl = self.url + path
+
+        if last:
+            self.url = self.stripUrl % last
+            self.endOfLife = True
+
+    @classmethod
+    def getmodules(cls):
+        return (
+            # Not on frontpage...
+            cls('Buzzboy', 'buzzboy'),
+            cls('EveryoneLovesAdis', 'adis'),
+
+            # do not edit anything below since these entries are generated from
+            # scripts/update_plugins.sh
+            # START AUTOUPDATE
+            cls('27TwentySeven', 'twenty-seven'),
+            cls('Avengelyne', 'avengelyne'),
+            cls('BanzaiGirl', 'banzaigirl'),
+            cls('Barker', 'barkercomic'),
+            cls('ChoppingBlock', 'choppingblock'),
+            cls('ClichFlamb', 'clicheflambe'),
+            cls('CountYourSheep', 'countyoursheep'),
+            cls('CrowScare', 'crowscare', last="20111031"),
+            cls('Dreamless', 'dreamless', last="20100726"),
+            cls('EverythingJake', 'everythingjake'),
+            cls('Exposure', 'exposure'),
+            cls('FallOutToyWorks', 'fallouttoyworks'),
+            cls('FriarAndBrimstone', 'friarandbrimstone'),
+            cls('GeneCatlow', 'genecatlow'),
+            cls('GodMode', 'godmode'),
+            cls('GreenWake', 'greenwake'),
+            cls('HeadTrip', 'headtrip'),
+            cls('HeroByNight', 'herobynight'),
+            cls('HoaxHunters', 'hoaxhunters'),
+            cls('InfinityRefugees', 'newshounds'),
+            cls('InHere', 'inhere'),
+            cls('JadeWarriors', 'jadewarriors'),
+            cls('Katrina', 'katrina'),
+            cls('Landis', 'landis'),
+            cls('LutherStrode', 'lutherstrode'),
+            cls('MakeshiftMiracle', 'makeshiftmiracle'),
+            cls('Marksmen', 'marksmen'),
+            cls('MarryMe', 'marryme'),
+            cls('MedusasDaughter', 'medusasdaughter'),
+            cls('MonsterMassacre', 'monstermassacre'),
+            cls('MysticRevolution', 'mysticrevolution', path="?cid=%s"),
+            cls('NoPinkPonies', 'nopinkponies'),
+            cls('NoRoomForMagic', 'noroomformagic'),
+            cls('OutThere', 'outthere'),
+            cls('Porcelain', 'porcelain'),
+            cls('PunchAnPie', 'punchanpie', path="daily/%s.html"),
+            cls('QUILTBAG', 'quiltbag'),
+            cls('RedSpike', 'redspike'),
+            cls('RumbleFall', 'rumblefall'),
+            cls('SamuraisBlood', 'samuraisblood'),
+            cls('Sharky', 'sharky'),
+            cls('ShockwaveDarkside', 'shockwave', path="2d/%s.html"),
+            cls('SomethingHappens', 'somethinghappens'),
+            cls('SoreThumbs', 'sorethumbs'),
+            cls('Striptease', 'striptease'),
+            cls('Supernovas', 'supernovas'),
+            cls('Superosity', 'superosity'),
+            cls('TheFirstDaughter', 'thefirstdaughter'),
+            cls('TheHopeVirus', 'hopevirus'),
+            cls('TheHuntersOfSalamanstra', 'salamanstra'),
+            cls('TheLounge', 'thelounge'),
+            cls('TheVault', 'thevault'),
+            cls('WaywardSons', 'waywardsons'),
+            cls('WeirdingWillows', 'weirdingwillows'),
+            cls('WICKEDPOWERED', 'wickedpowered'),
+            cls('WisdomOfMoo', 'wisdomofmoo'),
+            cls('Yirmumah', 'yirmumah', path="%s/"),
+            # END AUTOUPDATE
+        )
+
+    def shouldSkipUrl(self, url, data):
+        return url in (
+            'http://sorethumbs.keenspot.com/d/20160117.html'
+        )
