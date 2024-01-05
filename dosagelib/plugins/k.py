@@ -57,6 +57,16 @@ class KiwiBlitz(ComicControlScraper):
     firstStripUrl = stripUrl % 'welcome-to-kb'
 
 
+class Kochab(ParserScraper):
+    url = 'https://www.kochab-comic.com/'
+    firstStripUrl = url + 'comic/prologue-00'
+    imageSearch = '//img[@id="cc-comic"]'
+    prevSearch = '//a[d:class("cc-prev")]'
+    nextSearch = '//a[d:class("cc-next")]'
+    latestSearch = '//a[d:class("cc-last")]'
+    endOfLife = True
+
+
 class Krakow(BasicScraper):
     url = 'http://www.krakow.krakowstudios.com/'
     stripUrl = url + 'archive.php?date=%s'
