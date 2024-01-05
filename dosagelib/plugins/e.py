@@ -229,6 +229,13 @@ class Exvulnerum(_ParserScraper):
     prevSearch = '//a[./img[contains(@src, "nav_prev")]]'
 
 
+class ExterminatusNow(WordPressScraper):
+    url = 'http://exterminatusnow.co.uk/'
+    firstStripUrl = url + '/2003-09-29/comic/meet-the-crew/dirty-harry/'
+    imageSearch = '//img[contains(@src, "comics/")]'
+    prevSearch = '//a[d:class("navi-prev")]'
+
+
 class ExtraFabulousComics(WordPressScraper):
     url = 'https://extrafabulouscomics.com/'
     firstStripUrl = url + 'comic/buttfly/'
