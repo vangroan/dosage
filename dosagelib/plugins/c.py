@@ -179,6 +179,15 @@ class CatVersusHuman(_ParserScraper):
     starter = indirectStarter
 
 
+class CatsWay(WordPressScraper):
+    url = 'https://catswaycomic.com'
+    stripUrl = url + 'comic/%s/'
+    firstStripUrl = stripUrl % 'page-1'
+    prevSearch = '//a[@class="comic-nav-base comic-nav-previous"]'
+    nextSearch = '//a[@class="comic-nav-base comic-nav-next"]'
+    latestSearch = '//a[@class="comic-nav-base comic-nav-last"]'
+
+
 class CavesAndCritters(WordPressWebcomic):
     url = 'https://cavesandcritters.com/?ao_confirm'
     stripUrl = 'https://cavesandcritters.com/cnc_webcomic/%s/'
